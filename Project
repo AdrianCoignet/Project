@@ -1,0 +1,84 @@
+"This script was devolped by Adrian Coignet from the 20th to the 29th of April 2024. It is intended to be a Password Mananger which saves information that is given"
+
+
+import os
+
+"""Here I define this function so the users are met with what the program is and called
+I have tried to allow different itterations of Enter or Exit so the application is more user friendly
+Any 'invalid' input will also make the application ask the user to use the right command"""
+
+def welcome_screen():
+    while True:
+        print("Password Manager")
+        forward = input("Please press Enter to begin. Or Exit to leave. ")
+        
+        if forward == "" or forward == "Enter" or forward == "enter":
+            main_menu()
+        elif forward == "Exit" or forward == "exit":
+            print("Now exiting script")
+            break  
+        else:
+            print("Invalid input. Please press Enter to begin. Or Exit to leave. ")
+
+"""Here I am defining this function to ask the client/user what their credentials are.
+It also states that when this program is open it should open a .txt file.
+It opens the text file as 'a' for append mode, which states that it will open up the directed file and if one does not exist it will then make said file."""
+
+
+def add_credentials():
+    username = input("What is your username?")
+    password = input("What is your password?")
+    url =  input("Please provide the relevant url:")
+        
+    with open('UsernameandPasswords.txt', 'a') as file:  #Creates/Opens a writeable file
+        file.write(f"Username: {username} Password: {password} Url: {url}\n")
+        print("Credentials have been stored successfully")
+                  
+
+
+
+"""Here I am defining this function to call on the desired information of the text file which correlates to the information input in the 'add_credentials' stage
+It opens the text file as 'r' for read mode, which only lets the user read the information and not change the given information
+If there is no information it will print a message saying 'There are no available credentials available'"""
+
+def saved_credentials():       #Function to call upon saved data
+    if os.path.exists("UsernameandPasswords.txt"):     #Opens files but does not allow any writeable actions
+        with open ("UsernameandPasswords.txt", "r") as file:
+            print("Stored Information:")
+            print(file.read())
+    else:
+        print("There are no available credentials available")
+
+
+
+
+"""Here I am defining this function which will display the user with the appropriate choices
+It allows the user to choose from the 2 previous stated functions being 'Add_Credentials' or 'Saved_Credentials'
+A third option is also given which gives the user the ability to exit the application"""
+        
+def main_menu():      #Function to access other functions
+    while True:
+        print("Please select one of the following options below:")
+        print("1. Add Credentials")
+        print("2. View Credentials")
+        print("3. Exit")
+        
+
+        choice = input("Please enter your choice 1, 2 , 3: ")
+        
+
+
+        if choice == "1":
+            add_credentials()
+        elif choice == "2":
+            saved_credentials()
+        elif choice == "3":
+            print("Now exiting script")
+            break
+        else:
+            print("You have selected an invalid choice. Please enter either 1, 2, or 3.")
+ 
+
+welcome_screen()   #Calls on this stored function first
+        
+
